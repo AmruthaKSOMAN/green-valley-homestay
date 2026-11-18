@@ -1,0 +1,137 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Green Valley Homestay{% endblock %}</title>
+
+    <meta name="description"
+          content="Welcome to Green Valley Homestay. Enjoy a peaceful and comfortable stay.">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="main-header">
+
+        <div class="container header-container">
+
+            <!-- Website Logo / Name -->
+            <div class="logo">
+                <a href="/">
+                    Green Valley
+                    <span>Homestay</span>
+                </a>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="main-nav">
+
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#rooms">Rooms</a></li>
+                    <li><a href="/#gallery">Gallery</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+
+            </nav>
+
+            <!-- Booking Button -->
+            <div class="header-booking">
+                <a href="/#rooms" class="btn-book">Book Now</a>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Content Section -->
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+
+        <div class="container footer-container">
+
+            <!-- Footer About -->
+            <div class="footer-about">
+
+                <h3>Green Valley Homestay</h3>
+
+                <p>
+                    Experience a peaceful and comfortable stay
+                    surrounded by nature. Enjoy memorable moments
+                    with your family and friends.
+                </p>
+
+            </div>
+
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+
+                <h3>Quick Links</h3>
+
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about">About Us</a></li>
+                    <li><a href="/#rooms">Our Rooms</a></li>
+                    <li><a href="/#gallery">Gallery</a></li>
+                    <li><a href="/#contact">Contact Us</a></li>
+                </ul>
+
+            </div>
+
+
+            <!-- Contact Information -->
+            <div class="footer-contact">
+
+                <h3>Contact Us</h3>
+
+                <p>Email: info@greenvalleyhomestay.com</p>
+
+                <p>Phone: +91 XXXXXXXXXX</p>
+
+                <p>Location: Kerala, India</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+
+            <p>
+                &copy; {% now "Y" %} Green Valley Homestay.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

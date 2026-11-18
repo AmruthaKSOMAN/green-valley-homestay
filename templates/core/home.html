@@ -1,0 +1,149 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Home | Green Valley Homestay
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+
+    <div class="container hero-content">
+
+        <h1>Welcome to Green Valley Homestay</h1>
+
+        <p>
+            Experience peace, comfort and beautiful moments
+            surrounded by nature.
+        </p>
+
+        <a href="#rooms" class="btn-book">
+            Explore Our Rooms
+        </a>
+
+    </div>
+
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+
+    <div class="container">
+
+        <h2>Welcome to Our Homestay</h2>
+
+        <p>
+            Green Valley Homestay offers a peaceful and
+            comfortable environment for families, couples
+            and travellers. Enjoy a relaxing stay with
+            beautiful surroundings and warm hospitality.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="rooms" class="rooms-section">
+    <div class="container">
+
+        <h2>Our Rooms</h2>
+
+        <p>
+            Discover comfortable rooms designed to make
+            your stay memorable.
+        </p>
+
+        <div class="rooms-grid">
+
+            {% for room in rooms %}
+
+                <div class="room-card">
+
+                                    
+                    {% if room.display_image %}
+                        <img
+                            src="{{ room.display_image.image.url }}"
+                            alt="{{ room.name }}"
+                            class="room-image"
+                        >
+                    {% else %}
+                        <div class="room-image-placeholder">
+                            <p>Room image coming soon</p>
+                        </div>
+                    {% endif %}
+
+
+                    <div class="room-details">
+
+                        <h3>{{ room.name }}</h3>
+
+                        <p class="room-number">
+                            Room No: {{ room.room_number }}
+                        </p>
+
+                        <p>{{ room.description }}</p>
+
+                        <p>
+                            Maximum Guests: {{ room.max_guests }}
+                        </p>
+
+                        <h4>
+                            ₹{{ room.price_per_night }} / Night
+                        </h4>
+
+                        <a
+                            href="{% url 'bookings:create_booking' %}?room={{ room.id }}"
+                            class="btn-book-submit"
+                        >
+                            Book Now
+                        </a>
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p>No rooms are currently available.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery" class="gallery-section">
+
+    <div class="container">
+
+        <h2>Our Gallery</h2>
+
+        <p>
+            Explore the beauty and comfort of Green Valley Homestay.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+
+    <div class="container">
+
+        <h2>Contact Us</h2>
+
+        <p>
+            We would love to hear from you.
+            Contact us to plan your stay.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

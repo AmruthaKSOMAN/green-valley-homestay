@@ -1,0 +1,117 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Owner Dashboard | Green Valley Homestay{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+    <div class="container">
+
+        <h2>Owner Dashboard</h2>
+        <p class="dashboard-intro">
+            Manage your homestay booking requests.
+        </p>
+
+        <div class="dashboard-bookings">
+
+            <h3>All Bookings</h3>
+
+            {% if bookings %}
+
+                <div class="table-responsive">
+                    <table class="booking-table">
+
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Booking Type</th>
+                                <th>Room</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Guests</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for booking in bookings %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ booking.customer_name }}</strong>
+                                        <small>{{ booking.customer_email }}</small>
+                                        <small>{{ booking.customer_phone }}</small>
+                                    </td>
+
+                                    <td>
+                                        {{ booking.get_booking_type_display }}
+                                    </td>
+
+                                    <td>
+                                        {% if booking.room %}
+                                            {{ booking.room.name }}
+                                        {% else %}
+                                            Whole Building
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{ booking.check_in|date:"d M Y" }}</td>
+
+                                    <td>{{ booking.check_out|date:"d M Y" }}</td>
+
+                                    <td>{{ booking.number_of_guests }}</td>
+
+                                    <td>₹{{ booking.total_amount }}</td>
+
+                                    <td>
+                                        {{ booking.get_status_display }}
+                                    </td>
+
+                                    <td>
+                                        {% if booking.status == 'pending' %}
+
+                                            <form method="POST"
+                                                action="{% url 'bookings:confirm_booking' booking.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn-confirm">
+                                                    Confirm
+                                                </button>
+                                            </form>
+
+                                        {% endif %}
+
+                                        {% if booking.status == 'pending' or booking.status == 'confirmed' %}
+
+                                            <form method="POST"
+                                                action="{% url 'bookings:cancel_booking' booking.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn-cancel">
+                                                    Cancel
+                                                </button>
+                                            </form>
+
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+            {% else %}
+
+                <p class="no-bookings">
+                    No bookings available.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

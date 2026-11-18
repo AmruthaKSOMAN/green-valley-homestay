@@ -1,0 +1,94 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Book Your Stay | Green Valley Homestay{% endblock %}
+
+{% block content %}
+
+<section class="booking-section">
+
+    <div class="container">
+
+        <div class="booking-container">
+
+            <h2>Book Your Stay</h2>
+
+            <p class="booking-intro">
+                Fill in the details below to request your reservation.
+                Our team will contact you to confirm your booking.
+            </p>
+
+            <form method="POST" class="booking-form">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                
+                {% for field in form %}
+
+                    <div class="form-group" id="field-{{ field.name }}">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="field-error">
+                                {% for error in field.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+                <button type="submit" class="btn-book-submit">
+                    Submit Booking Request
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const bookingType = document.getElementById('id_booking_type');
+            const roomField = document.getElementById('field-room');
+
+            function toggleRoomField() {
+
+                if (bookingType.value === 'whole') {
+                    roomField.style.display = 'none';
+                } else {
+                    roomField.style.display = 'block';
+                }
+            }
+
+            bookingType.addEventListener('change', toggleRoomField);
+
+            // Check the initial selection when the page loads.
+            toggleRoomField();
+
+        });
+    </script>
+{% endblock %}
